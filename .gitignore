@@ -39,9 +39,6 @@ config.yml
 secrets.txt
 credentials.json
 
-# Ignore generated documentation
-docs/
-
 # Ignore backup files
 *.bak
 *.swp
