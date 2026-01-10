@@ -47,6 +47,11 @@
                 <small class="form-text text-muted">Required*</small>
             </div>
             <div class="form-group">
+                <label for="mail">Email (optional):</label>
+                <input class="form-control" type="email" inputmode="email" placeholder="your.email@example.com" name="mail">
+                <small class="form-text text-muted">Optional - for result confirmation</small>
+            </div>
+            <div class="form-group">
                 <label for="type">Type:</label>
                 <input class="form-control" type="text" readonly name="type" unselectable="on" value="q-MOS">
             </div>
@@ -147,11 +152,12 @@
     
 
             <input type="text" name="formid" value="1" hidden>
-            <input type="text" name="thank" value="Thank you again for participating in this experiment! There are two experiments. Please make sure you participate in both. " hidden>
+            <input type="text" name="thank" value="Thank you again for participating in this experiment! Your responses have been recorded." hidden>
             <input class="btn btn-info btn-lg" type="submit" value="Submit Results" id="submitBtn">
             <p class="text-muted">
                 <small>If you encounter any issues submitting the results, please double-check if you have filled in your name and answered every question. Thank you.</small>
             </p>
+            <div id="submitMessage" style="display:none; margin-top: 20px;"></div>
         </form>
 </div>
 
@@ -160,45 +166,77 @@
     </div>
 
 <script>
-        document.getElementById('theForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // 防止表单默认提交
-
-            // 获取所有问题的容器
-            const questions = document.querySelectorAll('.question');
-            let textData = '';
-            textData += `Gender: ${document.querySelector('input[name="name"]').value}\n`;
-
-            questions.forEach(question => {
-                // 获取问题ID
-                const questionId = question.getAttribute('data-question-id');
-                // 获取该问题的选择
-                const selectedOption = question.querySelector('input[type="radio"]:checked');
-                if (selectedOption) {
-                    // 如果有选择，则记录问题和选择的值
-                    textData += `Question ${questionId}: ${selectedOption.value}\n`;
-                } else {
-                    // 如果没有选择，则记录未作答
-                    textData += `Question ${questionId}: No answer\n`;
+        (function() {
+            const formUrl = "https://script.google.com/macros/s/AKfycbz88pG3Usw7jdtNWh9pUWnfPR855SESSYZFGyaYbPv006CSZplhdrc2v2wwhjakF8mkjg/exec";
+            let isSubmitting = false;
+            
+            document.getElementById('theForm').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent default form submission
+                
+                if (isSubmitting) {
+                    return false; // Prevent multiple submissions
                 }
+                
+                const submitBtn = document.getElementById('submitBtn');
+                const submitMessage = document.getElementById('submitMessage');
+                
+                // Validate form
+                if (!this.checkValidity()) {
+                    this.reportValidity();
+                    return false;
+                }
+                
+                // Check if all questions are answered
+                const questions = document.querySelectorAll('.question');
+                let allAnswered = true;
+                questions.forEach(function(question) {
+                    const radioButtons = question.querySelectorAll('input[type="radio"]');
+                    const checked = question.querySelector('input[type="radio"]:checked');
+                    if (!checked && radioButtons.length > 0) {
+                        allAnswered = false;
+                    }
+                });
+                
+                if (!allAnswered) {
+                    submitMessage.innerHTML = '<div class="alert alert-warning" role="alert">' +
+                        '<strong>Please answer all questions before submitting.</strong>' +
+                        '</div>';
+                    submitMessage.style.display = 'block';
+                    submitMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    return false;
+                }
+                
+                // Mark as submitting
+                isSubmitting = true;
+                submitBtn.disabled = true;
+                submitBtn.value = 'Submitting...';
+                submitMessage.style.display = 'none';
+                
+                // Collect form data
+                const formData = new FormData(this);
+                const params = new URLSearchParams();
+                
+                // Convert FormData to URL parameters
+                for (const [key, value] of formData.entries()) {
+                    if (value) { // Only add non-empty values
+                        params.append(key, value);
+                    }
+                }
+                
+                // Create the full URL
+                const fullUrl = formUrl + '?' + params.toString();
+                
+                // Submit by redirecting (this is the most reliable way for Google Apps Script)
+                // The Google Apps Script will return an HTML page with thank you message
+                window.location.href = fullUrl;
+                
+                // Note: The page will redirect to Google Apps Script's response
+                // If you want to stay on the page, you would need to use a different approach
+                // But redirecting is the standard way for Google Apps Script GET requests
+                
+                return false;
             });
-
-            // 创建 Blob 对象
-            const blob = new Blob([textData], { type: 'text/plain' });
-
-             // 获取文件名
-            const fileNameInput = document.querySelector('input[name="mail"]');
-            const fileName = fileNameInput.value || 'survey_results';
-
-            // 创建链接元素
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = `${fileName}.txt`;
-
-            // 将链接添加到文档并触发下载
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        });
+        })();
     </script>
 </body>
 

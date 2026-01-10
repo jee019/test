@@ -17,7 +17,7 @@
     </div>
 
     <div class="container" id="form_container">
-        <form id="theForm" action="{{ form_url }}" method="GET" onsubmit="return preventRepeatedSubmission();">
+        <form id="theForm">
             <div class="form-group">
                 <label for="name">Gender:</label>
                 <input class="form-control" type="text" inputmode="text" name="name" placeholder="Male/Female/Other" required>
@@ -39,6 +39,7 @@
             <p class="text-muted">
                 <small>If you encounter any issues submitting the results, please double-check if you have filled in your name and answered every question. Thank you.</small>
             </p>
+            <div id="submitMessage" style="display:none; margin-top: 20px;"></div>
         </form>
 </div>
 
@@ -47,19 +48,77 @@
     </div>
 
 <script>
-        function preventRepeatedSubmission() {
-            const submitBtn = document.getElementById('submitBtn');
-            submitBtn.disabled = true;
-            submitBtn.value = 'Submitting...';
+        (function() {
+            const formUrl = "{{ form_url }}";
+            let isSubmitting = false;
             
-            // Re-enable after 5 seconds in case of error
-            setTimeout(function() {
-                submitBtn.disabled = false;
-                submitBtn.value = 'Submit Results';
-            }, 5000);
-            
-            return true;
-        }
+            document.getElementById('theForm').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent default form submission
+                
+                if (isSubmitting) {
+                    return false; // Prevent multiple submissions
+                }
+                
+                const submitBtn = document.getElementById('submitBtn');
+                const submitMessage = document.getElementById('submitMessage');
+                
+                // Validate form
+                if (!this.checkValidity()) {
+                    this.reportValidity();
+                    return false;
+                }
+                
+                // Check if all questions are answered
+                const questions = document.querySelectorAll('.question');
+                let allAnswered = true;
+                questions.forEach(function(question) {
+                    const radioButtons = question.querySelectorAll('input[type="radio"]');
+                    const checked = question.querySelector('input[type="radio"]:checked');
+                    if (!checked && radioButtons.length > 0) {
+                        allAnswered = false;
+                    }
+                });
+                
+                if (!allAnswered) {
+                    submitMessage.innerHTML = '<div class="alert alert-warning" role="alert">' +
+                        '<strong>Please answer all questions before submitting.</strong>' +
+                        '</div>';
+                    submitMessage.style.display = 'block';
+                    submitMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    return false;
+                }
+                
+                // Mark as submitting
+                isSubmitting = true;
+                submitBtn.disabled = true;
+                submitBtn.value = 'Submitting...';
+                submitMessage.style.display = 'none';
+                
+                // Collect form data
+                const formData = new FormData(this);
+                const params = new URLSearchParams();
+                
+                // Convert FormData to URL parameters
+                for (const [key, value] of formData.entries()) {
+                    if (value) { // Only add non-empty values
+                        params.append(key, value);
+                    }
+                }
+                
+                // Create the full URL
+                const fullUrl = formUrl + '?' + params.toString();
+                
+                // Submit by redirecting (this is the most reliable way for Google Apps Script)
+                // The Google Apps Script will return an HTML page with thank you message
+                window.location.href = fullUrl;
+                
+                // Note: The page will redirect to Google Apps Script's response
+                // If you want to stay on the page, you would need to use a different approach
+                // But redirecting is the standard way for Google Apps Script GET requests
+                
+                return false;
+            });
+        })();
     </script>
 </body>
 
