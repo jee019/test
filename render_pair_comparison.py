@@ -14,6 +14,7 @@ def main():
         page_title="Emotion Perception Experiment Form 1", 
         form_id=1,
         type="s-MOS",
+        form_url="https://script.google.com/macros/s/AKfycbz88pG3Usw7jdtNWh9pUWnfPR855SESSYZFGyaYbPv006CSZplhdrc2v2wwhjakF8mkjg/exec",  # Replace with your Google Apps Script Web App URL
         questions = QuestionGenerator("filelist/s-mos.csv").questions
     )
 
