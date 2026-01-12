@@ -7,83 +7,142 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css"
         integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
+    <style>
+        .radio-wrapper {
+            display: flex;
+            align-items: center;
+            margin-top: 15px;
+            gap: 10px;
+        }
+        .radio-label-left, .radio-label-right {
+            font-size: 14px;
+            white-space: nowrap;
+        }
+        .radio-label-left {
+            margin-left: 50px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .radio-label-right {
+            margin-left: 10px;
+            margin-right: 50px;
+            font-weight: bold;
+        }
+        .radio-horizontal {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+            flex: 1;
+        }
+        .radio-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+        .radio-option input[type="radio"] {
+            margin-bottom: 8px;
+            cursor: pointer;
+            width: 15px;
+            height: 15px;
+            transform: scale(1.5);
+        }
+        .radio-option label {
+            display: none;
+        }
+        .radio-number {
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        .card-body p audio {
+            width: 100%;
+            max-width: 600px;
+        }
+        .transcription {
+            margin-top: 8px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #333;
+            max-width: 600px;
+        }
+    </style>
 </head>
 
 <body>
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
             
-    <h1 class="display-4">MOS Experiment</h1>
-    <p class="lead">Synthetic Speech Quality Evaluation</p>
+    <h1 class="display-5">MOS Experiment</h1>
     <hr class="my-4">
     <p>
-        Welcome to our experiment, which is a Mean Opinion Score (MOS) test for evaluating our Text-to-Speech (TTS) system. 
-        In this test, you will listen to a series of audio files that contain a mix of both <b>real human recordings</b> and <b>synthesized voices</b>.
-        Please make sure to use headphones for the best experience.
+        본 실험에 참여해 주셔서 감사합니다. <br> 각 문항에서 하나의 오디오 샘플을 들은 후, 오디오의 품질을 평가해주세요.
     </p>
     <p>
-        We kindly ask you to rate the quality of each audio file based on the following scale:
+        평가 기준 (1~5점):
     <ul>
-        <li><b>1 (Very Bad)</b>: The audio is highly distorted, difficult to understand, and unpleasant to listen to.</li>
-        <li><b>2 (Bad)</b>: The audio has noticeable issues that make it uncomfortable to listen to, though you can still understand the content.</li>
-        <li><b>3 (Fair)</b>: The audio is somewhat clear, but there are some issues that slightly affect its quality.</li>
-        <li><b>4 (Good)</b>: The audio is clear and pleasant to listen to, with only minor issues.</li>
-        <li><b>5 (Very Good)</b>: The audio is exceptionally clear, natural, and pleasant, with no noticeable issues.</li>
+        <li><b>1 (매우 나쁨)</b>: 왜곡이 심하고 알아듣기 어려우며, 듣기 불쾌합니다.</li>
+        <li><b>2 (나쁨)</b>: 음질이 좋지 않지만, 내용은 대체로 이해할 수 있습니다.</li>
+        <li><b>3 (보통)</b>: 전반적으로 무난하지만, 음질을 떨어뜨리는 문제가 일부 존재합니다.</li>
+        <li><b>4 (좋음)</b>: 대체로 선명하고 듣기 좋으며, 사소한 문제만 있습니다.</li>
+        <li><b>5 (매우 좋음)</b>: 매우 선명하고 자연스러우며 듣기 쾌적합니다.</li>
     </ul>
     </p>
-    <p>
-        Your feedback is crucial for us to improve our TTS system. Thank you for your participation!
-    </p>
-
-
         </div>
     </div>
 
-    <div class="container" id="form_container">
+    <div class="container" id="form_container" style="padding-bottom: 60px;">
         <form id="theForm">
             <div class="form-group">
-                <label for="name">Gender:</label>
-                <input class="form-control" type="text" inputmode="text" name="name" placeholder="Male/Female/Other" required>
+                <label for="name">이름:</label>
+                <input class="form-control" type="text" inputmode="text" name="name" placeholder="이름을 적어주세요." required>
                 <small class="form-text text-muted">Required*</small>
             </div>
-            <div class="form-group">
-                <label for="mail">Email (optional):</label>
-                <input class="form-control" type="email" inputmode="email" placeholder="your.email@example.com" name="mail">
-                <small class="form-text text-muted">Optional - for result confirmation</small>
-            </div>
-            <div class="form-group">
-                <label for="type">Type:</label>
-                <input class="form-control" type="text" readonly name="type" unselectable="on" value="q-MOS">
-            </div>
-            
-    
+        
         <div class="question" data-question-id="1">
             <div class="card-header">Question 1</div>
             <div class="card-body">
                 <p>
-                    <audio controls src="wav/q-mos/r/hap/5.wav">
+                    <audio controls src="../wav/tmp.wav">
                         Your browser does not support the audio element.
                     </audio>
                 </p>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q1" id="q1_1" value="5" required>
-                    <label class="form-check-label" for="q1_1">5 (Very Good) The audio is exceptionally clear, natural, and pleasant, with no noticeable issues.</label>
+                <div class="transcription">
+                    <strong>Transcription:</strong> This is a LibriVox recording.
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q1" id="q1_2" value="4" required>
-                    <label class="form-check-label" for="q1_2">4 (Good) The audio is clear and pleasant to listen to, with only minor issues.</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q1" id="q1_3" value="3" required>
-                    <label class="form-check-label" for="q1_3">3 (Fair) The audio is somewhat clear, but there are some issues that slightly affect its quality.</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q1" id="q1_4" value="2" required>
-                    <label class="form-check-label" for="q1_4">2 (Bad) The audio has noticeable issues that make it uncomfortable to listen to, though you can still understand the content.</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q1" id="q1_5" value="1" required>
-                    <label class="form-check-label" for="q1_5">1 (Very Bad) The audio is highly distorted, difficult to understand, and unpleasant to listen to.</label>
+                <div class="radio-wrapper">
+                    <div class="radio-label-left">매우 나쁨</div>
+                    <div class="radio-horizontal">
+                        <div class="radio-option">
+                            <input type="radio" name="q1" id="q1_1" value="1" required>
+                            <label for="q1_1">1 (Very Bad)</label>
+                            <div class="radio-number">1</div>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q1" id="q1_2" value="2" required>
+                            <label for="q1_2">2 (Bad)</label>
+                            <div class="radio-number">2</div>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q1" id="q1_3" value="3" required>
+                            <label for="q1_3">3 (Fair)</label>
+                            <div class="radio-number">3</div>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q1" id="q1_4" value="4" required>
+                            <label for="q1_4">4 (Good)</label>
+                            <div class="radio-number">4</div>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q1" id="q1_5" value="5" required>
+                            <label for="q1_5">5 (Very Good)</label>
+                            <div class="radio-number">5</div>
+                        </div>
+                    </div>
+                    <div class="radio-label-right">매우 좋음</div>
                 </div>
             </div>
         </div>
@@ -92,29 +151,43 @@
             <div class="card-header">Question 2</div>
             <div class="card-body">
                 <p>
-                    <audio controls src="wav/q-mos/r/hap/3.wav">
+                    <audio controls src="../wav/tmp.wav">
                         Your browser does not support the audio element.
                     </audio>
                 </p>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q2" id="q2_1" value="5" required>
-                    <label class="form-check-label" for="q2_1">5 (Very Good) The audio is exceptionally clear, natural, and pleasant, with no noticeable issues.</label>
+                <div class="transcription">
+                    <strong>Transcription:</strong> This is a LibriVox recording.
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q2" id="q2_2" value="4" required>
-                    <label class="form-check-label" for="q2_2">4 (Good) The audio is clear and pleasant to listen to, with only minor issues.</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q2" id="q2_3" value="3" required>
-                    <label class="form-check-label" for="q2_3">3 (Fair) The audio is somewhat clear, but there are some issues that slightly affect its quality.</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q2" id="q2_4" value="2" required>
-                    <label class="form-check-label" for="q2_4">2 (Bad) The audio has noticeable issues that make it uncomfortable to listen to, though you can still understand the content.</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q2" id="q2_5" value="1" required>
-                    <label class="form-check-label" for="q2_5">1 (Very Bad) The audio is highly distorted, difficult to understand, and unpleasant to listen to.</label>
+                <div class="radio-wrapper">
+                    <div class="radio-label-left">매우 나쁨</div>
+                    <div class="radio-horizontal">
+                        <div class="radio-option">
+                            <input type="radio" name="q2" id="q2_1" value="1" required>
+                            <label for="q2_1">1 (Very Bad)</label>
+                            <div class="radio-number">1</div>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q2" id="q2_2" value="2" required>
+                            <label for="q2_2">2 (Bad)</label>
+                            <div class="radio-number">2</div>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q2" id="q2_3" value="3" required>
+                            <label for="q2_3">3 (Fair)</label>
+                            <div class="radio-number">3</div>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q2" id="q2_4" value="4" required>
+                            <label for="q2_4">4 (Good)</label>
+                            <div class="radio-number">4</div>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q2" id="q2_5" value="5" required>
+                            <label for="q2_5">5 (Very Good)</label>
+                            <div class="radio-number">5</div>
+                        </div>
+                    </div>
+                    <div class="radio-label-right">매우 좋음</div>
                 </div>
             </div>
         </div>
@@ -123,29 +196,43 @@
             <div class="card-header">Question 3</div>
             <div class="card-body">
                 <p>
-                    <audio controls src="wav/q-mos/s/ang/1.wav">
+                    <audio controls src="../wav/tmp.wav">
                         Your browser does not support the audio element.
                     </audio>
                 </p>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q3" id="q3_1" value="5" required>
-                    <label class="form-check-label" for="q3_1">5 (Very Good) The audio is exceptionally clear, natural, and pleasant, with no noticeable issues.</label>
+                <div class="transcription">
+                    <strong>Transcription:</strong> This is a LibriVox recording.
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q3" id="q3_2" value="4" required>
-                    <label class="form-check-label" for="q3_2">4 (Good) The audio is clear and pleasant to listen to, with only minor issues.</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q3" id="q3_3" value="3" required>
-                    <label class="form-check-label" for="q3_3">3 (Fair) The audio is somewhat clear, but there are some issues that slightly affect its quality.</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q3" id="q3_4" value="2" required>
-                    <label class="form-check-label" for="q3_4">2 (Bad) The audio has noticeable issues that make it uncomfortable to listen to, though you can still understand the content.</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="q3" id="q3_5" value="1" required>
-                    <label class="form-check-label" for="q3_5">1 (Very Bad) The audio is highly distorted, difficult to understand, and unpleasant to listen to.</label>
+                <div class="radio-wrapper">
+                    <div class="radio-label-left">매우 나쁨</div>
+                    <div class="radio-horizontal">
+                        <div class="radio-option">
+                            <input type="radio" name="q3" id="q3_1" value="1" required>
+                            <label for="q3_1">1 (Very Bad)</label>
+                            <div class="radio-number">1</div>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q3" id="q3_2" value="2" required>
+                            <label for="q3_2">2 (Bad)</label>
+                            <div class="radio-number">2</div>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q3" id="q3_3" value="3" required>
+                            <label for="q3_3">3 (Fair)</label>
+                            <div class="radio-number">3</div>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q3" id="q3_4" value="4" required>
+                            <label for="q3_4">4 (Good)</label>
+                            <div class="radio-number">4</div>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="q3" id="q3_5" value="5" required>
+                            <label for="q3_5">5 (Very Good)</label>
+                            <div class="radio-number">5</div>
+                        </div>
+                    </div>
+                    <div class="radio-label-right">매우 좋음</div>
                 </div>
             </div>
         </div>
@@ -153,17 +240,13 @@
 
             <input type="text" name="formid" value="1" hidden>
             <input type="text" name="thank" value="Thank you again for participating in this experiment! Your responses have been recorded." hidden>
-            <input class="btn btn-info btn-lg" type="submit" value="Submit Results" id="submitBtn">
+            <input class="btn btn-info btn-lg" type="submit" value=" 제출 " id="submitBtn">
             <p class="text-muted">
-                <small>If you encounter any issues submitting the results, please double-check if you have filled in your name and answered every question. Thank you.</small>
+                <small>모든 문항에 응답했는지 다시 한 번 확인해주세요. 감사합니다.</small>
             </p>
             <div id="submitMessage" style="display:none; margin-top: 20px;"></div>
         </form>
 </div>
-
-    <div class="container" style="padding-top: 60px;">
-        <p class="text-center text-muted">&copy; CHI, MRI, TUM</p>
-    </div>
 
 <script>
         (function() {
