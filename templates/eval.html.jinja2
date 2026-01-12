@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>SMOS Experiment Form</title>
+    <title>MOS & SMOS Experiment Form</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css"
@@ -86,6 +86,20 @@
             width: 100%;
             max-width: 600px;
         }
+        .section-divider {
+            margin: 40px 0 20px 0;
+            padding: 25px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #495057;
+        }
     </style>
 </head>
 
@@ -93,20 +107,11 @@
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
             
-    <h1 class="display-5">Similarity MOS Experiment</h1>
+    <h1 class="display-5">MOS & SMOS Experiment</h1>
     <hr class="my-4">
     <p>
-        본 실험에 참여해 주셔서 감사합니다. <br> 각 문항에서 두 개의 오디오 샘플을 들은 후, 두 오디오 간 화자 유사도를 평가해주세요.
-    </p>
-    <p>
-        평가 기준 (1~5점):
-        <ul>
-            <li><b>1 (Not at all similar)</b></li>
-            <li><b>2 (Slightly similar)</b></li>
-            <li><b>3 (Moderately similar)</b></li>
-            <li><b>4 (Very similar)</b></li>
-            <li><b>5 (Extremely similar)</b></li>
-        </ul>
+        본 실험에 참여해 주셔서 감사합니다. <br> 
+        먼저 MOS (오디오 품질) 평가를 진행한 후, 이어서 SMOS (화자 유사도) 평가를 진행해주세요.
     </p>
 
         </div>
@@ -120,66 +125,138 @@
                 <small class="form-text text-muted">Required*</small>
             </div>
             
+            <!-- MOS Section -->
+            <div class="section-divider">
+                <div class="section-title">Part 1: MOS (Mean Opinion Score) Evaluation</div>
+                <p>
+                    각 문항에서 하나의 오디오 샘플을 들은 후, 오디오의 품질을 평가해주세요.
+                </p>
+                <p>
+                    평가 기준 (1~5점):
+                <ul>
+                    <li><b>1 (Bad)</b></li>
+                    <li><b>2 (Poor)</b></li>
+                    <li><b>3 (Fair)</b></li>
+                    <li><b>4 (Good)</b></li>
+                    <li><b>5 (Excellent)</b></li>
+                </ul>
+                </p>
+            </div>
     
-        <div class="question" data-question-id="1">
-            <div class="card-header">Question 1</div>
+    {% for question in mos_questions %}
+        <div class="question" data-question-id="{{ question.id }}" data-type="mos">
+            <div class="card-header">MOS Question {{ question.id }}</div>
+            <div class="card-body">
+                <p>
+                    <audio controls src="{{ question.audio_path }}">
+                        Your browser does not support the audio element.
+                    </audio>
+                </p>
+                {% if question.transcription %}
+                <div class="transcription">
+                    <strong>Transcription:</strong> {{ question.transcription }}
+                </div>
+                {% endif %}
+                <div class="radio-wrapper">
+                    <div class="radio-label-left">Bad</div>
+                    <div class="radio-horizontal">
+                        <div class="radio-option">
+                            <input type="radio" name="mos_{{ question.name }}" id="mos_{{ question.name }}_1" value="1" required>
+                            <label for="mos_{{ question.name }}_1">1 (Bad)</label>
+                            <div class="radio-number">1</div>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="mos_{{ question.name }}" id="mos_{{ question.name }}_2" value="2" required>
+                            <label for="mos_{{ question.name }}_2">2 (Poor)</label>
+                            <div class="radio-number">2</div>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="mos_{{ question.name }}" id="mos_{{ question.name }}_3" value="3" required>
+                            <label for="mos_{{ question.name }}_3">3 (Fair)</label>
+                            <div class="radio-number">3</div>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="mos_{{ question.name }}" id="mos_{{ question.name }}_4" value="4" required>
+                            <label for="mos_{{ question.name }}_4">4 (Good)</label>
+                            <div class="radio-number">4</div>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="mos_{{ question.name }}" id="mos_{{ question.name }}_5" value="5" required>
+                            <label for="mos_{{ question.name }}_5">5 (Excellent)</label>
+                            <div class="radio-number">5</div>
+                        </div>
+                    </div>
+                    <div class="radio-label-right">Excellent</div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+            <!-- SMOS Section -->
+            <div class="section-divider">
+                <div class="section-title">Part 2: SMOS (Speaker Similarity MOS) Evaluation</div>
+                <p>
+                    각 문항에서 두 개의 오디오 샘플을 들은 후, 두 오디오 간 화자 유사도를 평가해주세요.
+                </p>
+                <p>
+                    평가 기준 (1~5점):
+                    <ul>
+                        <li><b>1 (Not at all similar)</b></li>
+                        <li><b>2 (Slightly similar)</b></li>
+                        <li><b>3 (Moderately similar)</b></li>
+                        <li><b>4 (Very similar)</b></li>
+                        <li><b>5 (Extremely similar)</b></li>
+                    </ul>
+                </p>
+            </div>
+    
+    {% for question in smos_questions %}
+        <div class="question" data-question-id="{{ question.id }}" data-type="smos">
+            <div class="card-header">SMOS Question {{ question.id }}</div>
             <div class="card-body">
                 <div class="audio-container">
-                    
+                    {% for audio_path in question.audio_paths %}
                     <div>
                         <p>
-                            <audio controls src="wav/tmp.wav">
+                            <audio controls src="{{ audio_path }}">
                                 Your browser does not support the audio element.
                             </audio>
                         </p>
-                        
+                        {% if question.transcriptions and question.transcriptions[loop.index0] %}
                         <div class="transcription">
-                            <strong>Transcription:</strong> This is a LibriVox recording.
+                            <strong>Transcription:</strong> {{ question.transcriptions[loop.index0] }}
                         </div>
-                        
+                        {% endif %}
                     </div>
-                    
-                    <div>
-                        <p>
-                            <audio controls src="wav/tmp.wav">
-                                Your browser does not support the audio element.
-                            </audio>
-                        </p>
-                        
-                        <div class="transcription">
-                            <strong>Transcription:</strong> This is a LibriVox recording.
-                        </div>
-                        
-                    </div>
-                    
+                    {% endfor %}
                 </div>
                 
                 <div class="radio-wrapper">
                     <div class="radio-label-left">Not at all similar</div>
                     <div class="radio-horizontal">
                         <div class="radio-option">
-                            <input type="radio" name="q1" id="q1_1" value="1" required>
-                            <label for="q1_1">1 (Not at all similar)</label>
+                            <input type="radio" name="smos_{{ question.name }}" id="smos_{{ question.name }}_1" value="1" required>
+                            <label for="smos_{{ question.name }}_1">1 (Not at all similar)</label>
                             <div class="radio-number">1</div>
                         </div>
                         <div class="radio-option">
-                            <input type="radio" name="q1" id="q1_2" value="2" required>
-                            <label for="q1_2">2 (Slightly similar)</label>
+                            <input type="radio" name="smos_{{ question.name }}" id="smos_{{ question.name }}_2" value="2" required>
+                            <label for="smos_{{ question.name }}_2">2 (Slightly similar)</label>
                             <div class="radio-number">2</div>
                         </div>
                         <div class="radio-option">
-                            <input type="radio" name="q1" id="q1_3" value="3" required>
-                            <label for="q1_3">3 (Moderately similar)</label>
+                            <input type="radio" name="smos_{{ question.name }}" id="smos_{{ question.name }}_3" value="3" required>
+                            <label for="smos_{{ question.name }}_3">3 (Moderately similar)</label>
                             <div class="radio-number">3</div>
                         </div>
                         <div class="radio-option">
-                            <input type="radio" name="q1" id="q1_4" value="4" required>
-                            <label for="q1_4">4 (Very similar)</label>
+                            <input type="radio" name="smos_{{ question.name }}" id="smos_{{ question.name }}_4" value="4" required>
+                            <label for="smos_{{ question.name }}_4">4 (Very similar)</label>
                             <div class="radio-number">4</div>
                         </div>
                         <div class="radio-option">
-                            <input type="radio" name="q1" id="q1_5" value="5" required>
-                            <label for="q1_5">5 (Extremely similar)</label>
+                            <input type="radio" name="smos_{{ question.name }}" id="smos_{{ question.name }}_5" value="5" required>
+                            <label for="smos_{{ question.name }}_5">5 (Extremely similar)</label>
                             <div class="radio-number">5</div>
                         </div>
                     </div>
@@ -187,74 +264,7 @@
                 </div>
             </div>
         </div>
-    
-        <div class="question" data-question-id="2">
-            <div class="card-header">Question 2</div>
-            <div class="card-body">
-                <div class="audio-container">
-                    
-                    <div>
-                        <p>
-                            <audio controls src="wav/tmp.wav">
-                                Your browser does not support the audio element.
-                            </audio>
-                        </p>
-                        
-                        <div class="transcription">
-                            <strong>Transcription:</strong> This is a LibriVox recording.
-                        </div>
-                        
-                    </div>
-                    
-                    <div>
-                        <p>
-                            <audio controls src="wav/tmp.wav">
-                                Your browser does not support the audio element.
-                            </audio>
-                        </p>
-                        
-                        <div class="transcription">
-                            <strong>Transcription:</strong> This is a LibriVox recording.
-                        </div>
-                        
-                    </div>
-                    
-                </div>
-                
-                <div class="radio-wrapper">
-                    <div class="radio-label-left">Not at all similar</div>
-                    <div class="radio-horizontal">
-                        <div class="radio-option">
-                            <input type="radio" name="q2" id="q2_1" value="1" required>
-                            <label for="q2_1">1 (Not at all similar)</label>
-                            <div class="radio-number">1</div>
-                        </div>
-                        <div class="radio-option">
-                            <input type="radio" name="q2" id="q2_2" value="2" required>
-                            <label for="q2_2">2 (Slightly similar)</label>
-                            <div class="radio-number">2</div>
-                        </div>
-                        <div class="radio-option">
-                            <input type="radio" name="q2" id="q2_3" value="3" required>
-                            <label for="q2_3">3 (Moderately similar)</label>
-                            <div class="radio-number">3</div>
-                        </div>
-                        <div class="radio-option">
-                            <input type="radio" name="q2" id="q2_4" value="4" required>
-                            <label for="q2_4">4 (Very similar)</label>
-                            <div class="radio-number">4</div>
-                        </div>
-                        <div class="radio-option">
-                            <input type="radio" name="q2" id="q2_5" value="5" required>
-                            <label for="q2_5">5 (Extremely similar)</label>
-                            <div class="radio-number">5</div>
-                        </div>
-                    </div>
-                    <div class="radio-label-right">Extremely similar</div>
-                </div>
-            </div>
-        </div>
-    
+    {% endfor %}
 
             <input type="text" name="thank" value="참여해주셔서 감사합니다!" hidden>
             <input class="btn btn-info btn-lg" type="submit" value=" 제출 " id="submitBtn">
@@ -267,7 +277,7 @@
 
 <script>
         (function() {
-            const formUrl = "https://script.google.com/macros/s/AKfycbwxqky0Y2Dd9C2yf4ZrYTYKH7kCW-CM3YBv6RG-AGkFzEsuo_2vbgBTou2zoLTjIVW0/exec";
+            const formUrl = "{{ form_url }}";
             let isSubmitting = false;
             
             document.getElementById('theForm').addEventListener('submit', function(event) {
