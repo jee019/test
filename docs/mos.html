@@ -69,6 +69,23 @@
             color: #333;
             max-width: 600px;
         }
+        .audio-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .audio-container > div {
+            display: flex;
+            flex-direction: column;
+        }
+        .audio-container p {
+            margin: 0;
+        }
+        .audio-container audio {
+            width: 100%;
+            max-width: 600px;
+        }
     </style>
 </head>
 
@@ -91,6 +108,8 @@
         <li><b>5 (매우 좋음)</b>: 매우 선명하고 자연스러우며 듣기 쾌적합니다.</li>
     </ul>
     </p>
+
+
         </div>
     </div>
 
@@ -101,7 +120,8 @@
                 <input class="form-control" type="text" inputmode="text" name="name" placeholder="이름을 적어주세요." required>
                 <small class="form-text text-muted">Required*</small>
             </div>
-        
+            
+    
         <div class="question" data-question-id="1">
             <div class="card-header">Question 1</div>
             <div class="card-body">
@@ -110,9 +130,11 @@
                         Your browser does not support the audio element.
                     </audio>
                 </p>
+                
                 <div class="transcription">
                     <strong>Transcription:</strong> This is a LibriVox recording.
                 </div>
+                
                 <div class="radio-wrapper">
                     <div class="radio-label-left">매우 나쁨</div>
                     <div class="radio-horizontal">
@@ -155,9 +177,11 @@
                         Your browser does not support the audio element.
                     </audio>
                 </p>
+                
                 <div class="transcription">
                     <strong>Transcription:</strong> This is a LibriVox recording.
                 </div>
+                
                 <div class="radio-wrapper">
                     <div class="radio-label-left">매우 나쁨</div>
                     <div class="radio-horizontal">
@@ -200,9 +224,11 @@
                         Your browser does not support the audio element.
                     </audio>
                 </p>
+                
                 <div class="transcription">
                     <strong>Transcription:</strong> This is a LibriVox recording.
                 </div>
+                
                 <div class="radio-wrapper">
                     <div class="radio-label-left">매우 나쁨</div>
                     <div class="radio-horizontal">
@@ -239,7 +265,7 @@
     
 
             <input type="text" name="formid" value="1" hidden>
-            <input type="text" name="thank" value="Thank you again for participating in this experiment! Your responses have been recorded." hidden>
+            <input type="text" name="thank" value="참여해주셔서 감사합니다!" hidden>
             <input class="btn btn-info btn-lg" type="submit" value=" 제출 " id="submitBtn">
             <p class="text-muted">
                 <small>모든 문항에 응답했는지 다시 한 번 확인해주세요. 감사합니다.</small>
@@ -282,7 +308,7 @@
                 
                 if (!allAnswered) {
                     submitMessage.innerHTML = '<div class="alert alert-warning" role="alert">' +
-                        '<strong>Please answer all questions before submitting.</strong>' +
+                        '<strong>모든 문항에 응답해주세요.</strong>' +
                         '</div>';
                     submitMessage.style.display = 'block';
                     submitMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });

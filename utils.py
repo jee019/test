@@ -34,9 +34,8 @@ class QuestionGenerator_MOS(QuestionGenerator):
         return questions
     
 
-class QuestionGenerator_PMOS(QuestionGenerator):
+class QuestionGenerator_SMOS(QuestionGenerator):
     def __init__(self, csv_file_path):
-        self.emodict = {'hap':'Happy', 'sad':'Sad', 'ang':'Angry', 'sur':'Surprised'}
         super().__init__(csv_file_path)
     def generate_questions(self):
         questions = []
@@ -45,12 +44,10 @@ class QuestionGenerator_PMOS(QuestionGenerator):
             for idx, row in enumerate(csv_reader, start=1):
                 f1 = row['filename1']
                 f2 = row['filename2']
-                # get emotion label from filename
-                emotion = self.emodict[f1.split('_')[-3][0:3]]
 
                 question = {
                     "id": idx,
-                    "title": f"Question {idx}:   {emotion} Speech",  # Dynamically generate title
+                    "title": f"Question {idx}",  # Dynamically generate title
                     "audio_paths": [f"{f1}", f"{f2}"],  # Assume all files are in 'wavs/' directory
                     "name": f"q{idx}"  # Unique identifier for the question
                 }
@@ -65,8 +62,8 @@ class QuestionGenerator_PMOS(QuestionGenerator):
                 else:
                     transcriptions.append(None)
                 
-                # Only add transcriptions if at least one exists
-                if any(transcriptions):
+                # Only add transcriptions if at least one exists (not None and not empty)
+                if any(t for t in transcriptions if t):
                     question["transcriptions"] = transcriptions
                 questions.append(question)
         return questions

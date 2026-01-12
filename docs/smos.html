@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Emotion Perception Experiment Form 1</title>
+    <title>SMOS Experiment Form 1</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css"
@@ -56,6 +56,19 @@
             font-weight: bold;
             margin-top: 5px;
         }
+        .card-body p audio {
+            width: 100%;
+            max-width: 600px;
+        }
+        .transcription {
+            margin-top: 8px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #333;
+            max-width: 600px;
+        }
         .audio-container {
             display: flex;
             flex-direction: column;
@@ -71,15 +84,6 @@
         }
         .audio-container audio {
             width: 100%;
-            max-width: 600px;
-        }
-        .transcription {
-            margin-top: 8px;
-            padding: 10px;
-            background-color: #f8f9fa;
-            border-radius: 4px;
-            font-size: 14px;
-            color: #333;
             max-width: 600px;
         }
     </style>
@@ -104,41 +108,50 @@
             <li><b>5 (완전히 동일함):</b> 두 오디오는 화자가 완전히 동일합니다.</li>
         </ul>
     </p>
+
         </div>
     </div>
 
-    <div class="container" id="form_container">
+    <div class="container" id="form_container" style="padding-bottom: 60px;">
         <form id="theForm">
             <div class="form-group">
                 <label for="name">이름:</label>
                 <input class="form-control" type="text" inputmode="text" name="name" placeholder="이름을 적어주세요." required>
                 <small class="form-text text-muted">Required*</small>
             </div>
-        
+            
+    
         <div class="question" data-question-id="1">
             <div class="card-header">Question 1</div>
             <div class="card-body">
                 <div class="audio-container">
+                    
                     <div>
                         <p>
                             <audio controls src="../wav/tmp.wav">
                                 Your browser does not support the audio element.
                             </audio>
                         </p>
+                        
                         <div class="transcription">
                             <strong>Transcription:</strong> This is a LibriVox recording.
                         </div>
+                        
                     </div>
+                    
                     <div>
                         <p>
                             <audio controls src="../wav/tmp.wav">
                                 Your browser does not support the audio element.
                             </audio>
                         </p>
+                        
                         <div class="transcription">
                             <strong>Transcription:</strong> This is a LibriVox recording.
                         </div>
+                        
                     </div>
+                    
                 </div>
                 
                 <div class="radio-wrapper">
@@ -179,26 +192,33 @@
             <div class="card-header">Question 2</div>
             <div class="card-body">
                 <div class="audio-container">
+                    
                     <div>
                         <p>
                             <audio controls src="../wav/tmp.wav">
                                 Your browser does not support the audio element.
                             </audio>
                         </p>
+                        
                         <div class="transcription">
                             <strong>Transcription:</strong> This is a LibriVox recording.
                         </div>
+                        
                     </div>
+                    
                     <div>
                         <p>
                             <audio controls src="../wav/tmp.wav">
                                 Your browser does not support the audio element.
                             </audio>
                         </p>
+                        
                         <div class="transcription">
                             <strong>Transcription:</strong> This is a LibriVox recording.
                         </div>
+                        
                     </div>
+                    
                 </div>
                 
                 <div class="radio-wrapper">
@@ -206,22 +226,27 @@
                     <div class="radio-horizontal">
                         <div class="radio-option">
                             <input type="radio" name="q2" id="q2_1" value="1" required>
+                            <label for="q2_1">1 전혀 다름</label>
                             <div class="radio-number">1</div>
                         </div>
                         <div class="radio-option">
                             <input type="radio" name="q2" id="q2_2" value="2" required>
+                            <label for="q2_2">2 대부분 다름</label>
                             <div class="radio-number">2</div>
                         </div>
                         <div class="radio-option">
                             <input type="radio" name="q2" id="q2_3" value="3" required>
+                            <label for="q2_3">3 어느 정도 비슷함</label>
                             <div class="radio-number">3</div>
                         </div>
                         <div class="radio-option">
                             <input type="radio" name="q2" id="q2_4" value="4" required>
+                            <label for="q2_4">4 매우 비슷함</label>
                             <div class="radio-number">4</div>
                         </div>
                         <div class="radio-option">
                             <input type="radio" name="q2" id="q2_5" value="5" required>
+                            <label for="q2_5">5 완전히 동일함</label>
                             <div class="radio-number">5</div>
                         </div>
                     </div>
@@ -237,39 +262,82 @@
             <p class="text-muted">
                 <small>모든 문항에 응답했는지 다시 한 번 확인해주세요. 감사합니다.</small>
             </p>
+            <div id="submitMessage" style="display:none; margin-top: 20px;"></div>
         </form>
 </div>
 
 <script>
-        document.getElementById('theForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            const questions = document.querySelectorAll('.question');
-            let textData = '';
-            textData += `Gender: ${document.querySelector('input[name="name"]').value}\n`;
-
-            questions.forEach(question => {
-                const questionId = question.getAttribute('data-question-id');
-                const selectedOption = question.querySelector('input[type="radio"]:checked');
-                if (selectedOption) {
-                    textData += `Question ${questionId}: ${selectedOption.value}\n`;
-                } else {
-                    textData += `Question ${questionId}: No answer\n`;
+        (function() {
+            const formUrl = "https://script.google.com/macros/s/AKfycbwxqky0Y2Dd9C2yf4ZrYTYKH7kCW-CM3YBv6RG-AGkFzEsuo_2vbgBTou2zoLTjIVW0/exec";
+            let isSubmitting = false;
+            
+            document.getElementById('theForm').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent default form submission
+                
+                if (isSubmitting) {
+                    return false; // Prevent multiple submissions
                 }
+                
+                const submitBtn = document.getElementById('submitBtn');
+                const submitMessage = document.getElementById('submitMessage');
+                
+                // Validate form
+                if (!this.checkValidity()) {
+                    this.reportValidity();
+                    return false;
+                }
+                
+                // Check if all questions are answered
+                const questions = document.querySelectorAll('.question');
+                let allAnswered = true;
+                questions.forEach(function(question) {
+                    const radioButtons = question.querySelectorAll('input[type="radio"]');
+                    const checked = question.querySelector('input[type="radio"]:checked');
+                    if (!checked && radioButtons.length > 0) {
+                        allAnswered = false;
+                    }
+                });
+                
+                if (!allAnswered) {
+                    submitMessage.innerHTML = '<div class="alert alert-warning" role="alert">' +
+                        '<strong>모든 문항에 응답해주세요.</strong>' +
+                        '</div>';
+                    submitMessage.style.display = 'block';
+                    submitMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    return false;
+                }
+                
+                // Mark as submitting
+                isSubmitting = true;
+                submitBtn.disabled = true;
+                submitBtn.value = 'Submitting...';
+                submitMessage.style.display = 'none';
+                
+                // Collect form data
+                const formData = new FormData(this);
+                const params = new URLSearchParams();
+                
+                // Convert FormData to URL parameters
+                for (const [key, value] of formData.entries()) {
+                    if (value) { // Only add non-empty values
+                        params.append(key, value);
+                    }
+                }
+                
+                // Create the full URL
+                const fullUrl = formUrl + '?' + params.toString();
+                
+                // Submit by redirecting (this is the most reliable way for Google Apps Script)
+                // The Google Apps Script will return an HTML page with thank you message
+                window.location.href = fullUrl;
+                
+                // Note: The page will redirect to Google Apps Script's response
+                // If you want to stay on the page, you would need to use a different approach
+                // But redirecting is the standard way for Google Apps Script GET requests
+                
+                return false;
             });
-
-            const blob = new Blob([textData], { type: 'text/plain' });
-
-            const fileNameInput = document.querySelector('input[name="mail"]');
-            const fileName = fileNameInput.value || 'survey_results';
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = `${fileName}.txt`;
-
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        });
+        })();
     </script>
 </body>
 

@@ -16,9 +16,8 @@ def main():
     html = template.render(
         page_title="MOS Experiment Form 1",
         form_id=1,
-        type="q-MOS",
         form_url="https://script.google.com/macros/s/AKfycbz88pG3Usw7jdtNWh9pUWnfPR855SESSYZFGyaYbPv006CSZplhdrc2v2wwhjakF8mkjg/exec",  # Replace with your Google Apps Script Web App URL
-        questions = QuestionGenerator("filelist/audio_order.csv").questions
+        questions = QuestionGenerator("filelist/MOS.csv").questions
     )
     # write html into file
     with open("docs/mos.html", "w") as f:
