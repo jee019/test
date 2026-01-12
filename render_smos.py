@@ -17,7 +17,7 @@ def main():
         questions = QuestionGenerator("filelist/SMOS.csv").questions
     )
 
-    with open("docs/smos.html", "w") as f:
+    with open("smos.html", "w") as f:
         f.write(html)
         print("Done!")
 

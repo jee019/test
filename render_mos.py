@@ -20,7 +20,7 @@ def main():
         questions = QuestionGenerator("filelist/MOS.csv").questions
     )
     # write html into file
-    with open("docs/mos.html", "w") as f:
+    with open("mos.html", "w") as f:
         f.write(html)
         print("Done!")
 
