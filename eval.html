@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>MOS & SMOS Experiment Form</title>
+    <title>NMOS & SMOS Experiment Form</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css"
@@ -60,15 +60,6 @@
             width: 100%;
             max-width: 600px;
         }
-        .transcription {
-            margin-top: 8px;
-            padding: 10px;
-            background-color: #f8f9fa;
-            border-radius: 4px;
-            font-size: 14px;
-            color: #333;
-            max-width: 600px;
-        }
         .audio-container {
             display: flex;
             flex-direction: column;
@@ -107,11 +98,11 @@
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
             
-    <h1 class="display-5">MOS & SMOS Experiment</h1>
+    <h1 class="display-5">NMOS & SMOS Experiment</h1>
     <hr class="my-4">
     <p>
         본 실험에 참여해 주셔서 감사합니다. <br> 
-        먼저 MOS (오디오 품질) 평가를 진행한 후, 이어서 SMOS (화자 유사도) 평가를 진행해주세요.
+        먼저 NMOS (음성의 자연스러움) 평가를 진행한 후, 이어서 SMOS (화자 유사도) 평가를 진행해주세요.
     </p>
 
         </div>
@@ -125,162 +116,147 @@
                 <small class="form-text text-muted">Required*</small>
             </div>
             
-            <!-- MOS Section -->
+            <!-- NMOS Section -->
             <div class="section-divider">
-                <div class="section-title">Part 1: MOS (Mean Opinion Score) Evaluation</div>
+                <div class="section-title">Part 1: NMOS (Naturalness Mean Opinion Score) Evaluation</div>
                 <p>
-                    각 문항에서 하나의 오디오 샘플을 들은 후, 오디오의 품질을 평가해주세요.
+                    각 문항에서 하나의 음성 샘플을 들은 후, 음성의 자연스러움을 평가해주세요.
                 </p>
                 <p>
                     평가 기준 (1~5점):
                 <ul>
-                    <li><b>1 (Bad)</b></li>
-                    <li><b>2 (Poor)</b></li>
-                    <li><b>3 (Fair)</b></li>
-                    <li><b>4 (Good)</b></li>
-                    <li><b>5 (Excellent)</b></li>
+                    <li><b>1 (Completely unnatural)</b></li>
+                    <li><b>2 (Mostly unnatural)</b></li>
+                    <li><b>3 (Equally natural and unnatural)</b></li>
+                    <li><b>4 (Mostly natural)</b></li>
+                    <li><b>5 (Completely natural)</b></li>
                 </ul>
                 </p>
             </div>
     
     
-        <div class="question" data-question-id="1" data-type="mos">
-            <div class="card-header">MOS Question 1</div>
+        <div class="question" data-question-id="1" data-type="nmos">
+            <div class="card-header"><b>NMOS</b> Question 1</div>
             <div class="card-body">
                 <p>
                     <audio controls src="wav/tmp.wav">
                         Your browser does not support the audio element.
                     </audio>
                 </p>
-                
-                <div class="transcription">
-                    <strong>Transcription:</strong> This is a LibriVox recording.
-                </div>
-                
                 <div class="radio-wrapper">
-                    <div class="radio-label-left">Bad</div>
+                    <div class="radio-label-left">Completely unnatural</div>
                     <div class="radio-horizontal">
                         <div class="radio-option">
-                            <input type="radio" name="mos_q1" id="mos_q1_1" value="1" required>
-                            <label for="mos_q1_1">1 (Bad)</label>
+                            <input type="radio" name="nmos_q1" id="nmos_q1_1" value="1" required>
+                            <label for="nmos_q1_1">1 (Completely unnatural)</label>
                             <div class="radio-number">1</div>
                         </div>
                         <div class="radio-option">
-                            <input type="radio" name="mos_q1" id="mos_q1_2" value="2" required>
-                            <label for="mos_q1_2">2 (Poor)</label>
+                            <input type="radio" name="nmos_q1" id="nmos_q1_2" value="2" required>
+                            <label for="nmos_q1_2">2 (Mostly unnatural)</label>
                             <div class="radio-number">2</div>
                         </div>
                         <div class="radio-option">
-                            <input type="radio" name="mos_q1" id="mos_q1_3" value="3" required>
-                            <label for="mos_q1_3">3 (Fair)</label>
+                            <input type="radio" name="nmos_q1" id="nmos_q1_3" value="3" required>
+                            <label for="nmos_q1_3">3 (Equally natural and unnatural)</label>
                             <div class="radio-number">3</div>
                         </div>
                         <div class="radio-option">
-                            <input type="radio" name="mos_q1" id="mos_q1_4" value="4" required>
-                            <label for="mos_q1_4">4 (Good)</label>
+                            <input type="radio" name="nmos_q1" id="nmos_q1_4" value="4" required>
+                            <label for="nmos_q1_4">4 (Mostly natural)</label>
                             <div class="radio-number">4</div>
                         </div>
                         <div class="radio-option">
-                            <input type="radio" name="mos_q1" id="mos_q1_5" value="5" required>
-                            <label for="mos_q1_5">5 (Excellent)</label>
+                            <input type="radio" name="nmos_q1" id="nmos_q1_5" value="5" required>
+                            <label for="nmos_q1_5">5 (Completely natural)</label>
                             <div class="radio-number">5</div>
                         </div>
                     </div>
-                    <div class="radio-label-right">Excellent</div>
+                    <div class="radio-label-right">Completely natural</div>
                 </div>
             </div>
         </div>
     
-        <div class="question" data-question-id="2" data-type="mos">
-            <div class="card-header">MOS Question 2</div>
+        <div class="question" data-question-id="2" data-type="nmos">
+            <div class="card-header"><b>NMOS</b> Question 2</div>
             <div class="card-body">
                 <p>
                     <audio controls src="wav/tmp.wav">
                         Your browser does not support the audio element.
                     </audio>
                 </p>
-                
-                <div class="transcription">
-                    <strong>Transcription:</strong> This is a LibriVox recording.
-                </div>
-                
                 <div class="radio-wrapper">
-                    <div class="radio-label-left">Bad</div>
+                    <div class="radio-label-left">Completely unnatural</div>
                     <div class="radio-horizontal">
                         <div class="radio-option">
-                            <input type="radio" name="mos_q2" id="mos_q2_1" value="1" required>
-                            <label for="mos_q2_1">1 (Bad)</label>
+                            <input type="radio" name="nmos_q2" id="nmos_q2_1" value="1" required>
+                            <label for="nmos_q2_1">1 (Completely unnatural)</label>
                             <div class="radio-number">1</div>
                         </div>
                         <div class="radio-option">
-                            <input type="radio" name="mos_q2" id="mos_q2_2" value="2" required>
-                            <label for="mos_q2_2">2 (Poor)</label>
+                            <input type="radio" name="nmos_q2" id="nmos_q2_2" value="2" required>
+                            <label for="nmos_q2_2">2 (Mostly unnatural)</label>
                             <div class="radio-number">2</div>
                         </div>
                         <div class="radio-option">
-                            <input type="radio" name="mos_q2" id="mos_q2_3" value="3" required>
-                            <label for="mos_q2_3">3 (Fair)</label>
+                            <input type="radio" name="nmos_q2" id="nmos_q2_3" value="3" required>
+                            <label for="nmos_q2_3">3 (Equally natural and unnatural)</label>
                             <div class="radio-number">3</div>
                         </div>
                         <div class="radio-option">
-                            <input type="radio" name="mos_q2" id="mos_q2_4" value="4" required>
-                            <label for="mos_q2_4">4 (Good)</label>
+                            <input type="radio" name="nmos_q2" id="nmos_q2_4" value="4" required>
+                            <label for="nmos_q2_4">4 (Mostly natural)</label>
                             <div class="radio-number">4</div>
                         </div>
                         <div class="radio-option">
-                            <input type="radio" name="mos_q2" id="mos_q2_5" value="5" required>
-                            <label for="mos_q2_5">5 (Excellent)</label>
+                            <input type="radio" name="nmos_q2" id="nmos_q2_5" value="5" required>
+                            <label for="nmos_q2_5">5 (Completely natural)</label>
                             <div class="radio-number">5</div>
                         </div>
                     </div>
-                    <div class="radio-label-right">Excellent</div>
+                    <div class="radio-label-right">Completely natural</div>
                 </div>
             </div>
         </div>
     
-        <div class="question" data-question-id="3" data-type="mos">
-            <div class="card-header">MOS Question 3</div>
+        <div class="question" data-question-id="3" data-type="nmos">
+            <div class="card-header"><b>NMOS</b> Question 3</div>
             <div class="card-body">
                 <p>
                     <audio controls src="wav/tmp.wav">
                         Your browser does not support the audio element.
                     </audio>
                 </p>
-                
-                <div class="transcription">
-                    <strong>Transcription:</strong> This is a LibriVox recording.
-                </div>
-                
                 <div class="radio-wrapper">
-                    <div class="radio-label-left">Bad</div>
+                    <div class="radio-label-left">Completely unnatural</div>
                     <div class="radio-horizontal">
                         <div class="radio-option">
-                            <input type="radio" name="mos_q3" id="mos_q3_1" value="1" required>
-                            <label for="mos_q3_1">1 (Bad)</label>
+                            <input type="radio" name="nmos_q3" id="nmos_q3_1" value="1" required>
+                            <label for="nmos_q3_1">1 (Completely unnatural)</label>
                             <div class="radio-number">1</div>
                         </div>
                         <div class="radio-option">
-                            <input type="radio" name="mos_q3" id="mos_q3_2" value="2" required>
-                            <label for="mos_q3_2">2 (Poor)</label>
+                            <input type="radio" name="nmos_q3" id="nmos_q3_2" value="2" required>
+                            <label for="nmos_q3_2">2 (Mostly unnatural)</label>
                             <div class="radio-number">2</div>
                         </div>
                         <div class="radio-option">
-                            <input type="radio" name="mos_q3" id="mos_q3_3" value="3" required>
-                            <label for="mos_q3_3">3 (Fair)</label>
+                            <input type="radio" name="nmos_q3" id="nmos_q3_3" value="3" required>
+                            <label for="nmos_q3_3">3 (Equally natural and unnatural)</label>
                             <div class="radio-number">3</div>
                         </div>
                         <div class="radio-option">
-                            <input type="radio" name="mos_q3" id="mos_q3_4" value="4" required>
-                            <label for="mos_q3_4">4 (Good)</label>
+                            <input type="radio" name="nmos_q3" id="nmos_q3_4" value="4" required>
+                            <label for="nmos_q3_4">4 (Mostly natural)</label>
                             <div class="radio-number">4</div>
                         </div>
                         <div class="radio-option">
-                            <input type="radio" name="mos_q3" id="mos_q3_5" value="5" required>
-                            <label for="mos_q3_5">5 (Excellent)</label>
+                            <input type="radio" name="nmos_q3" id="nmos_q3_5" value="5" required>
+                            <label for="nmos_q3_5">5 (Completely natural)</label>
                             <div class="radio-number">5</div>
                         </div>
                     </div>
-                    <div class="radio-label-right">Excellent</div>
+                    <div class="radio-label-right">Completely natural</div>
                 </div>
             </div>
         </div>
@@ -290,12 +266,12 @@
             <div class="section-divider">
                 <div class="section-title">Part 2: SMOS (Speaker Similarity MOS) Evaluation</div>
                 <p>
-                    각 문항에서 두 개의 오디오 샘플을 들은 후, 두 오디오 간 화자 유사도를 평가해주세요.
+                    각 문항에서 두 개의 음성 샘플을 들은 후, 두 음성 간 화자 유사도를 평가해주세요.
                 </p>
                 <p>
                     평가 기준 (1~5점):
                     <ul>
-                        <li><b>1 (Not at all similar)</b></li>
+                        <li><b>1 (Not similar at all)</b></li>
                         <li><b>2 (Slightly similar)</b></li>
                         <li><b>3 (Moderately similar)</b></li>
                         <li><b>4 (Very similar)</b></li>
@@ -306,7 +282,7 @@
     
     
         <div class="question" data-question-id="1" data-type="smos">
-            <div class="card-header">SMOS Question 1</div>
+            <div class="card-header"><b>SMOS</b> Question 1</div>
             <div class="card-body">
                 <div class="audio-container">
                     
@@ -316,11 +292,6 @@
                                 Your browser does not support the audio element.
                             </audio>
                         </p>
-                        
-                        <div class="transcription">
-                            <strong>Transcription:</strong> This is a LibriVox recording.
-                        </div>
-                        
                     </div>
                     
                     <div>
@@ -329,21 +300,16 @@
                                 Your browser does not support the audio element.
                             </audio>
                         </p>
-                        
-                        <div class="transcription">
-                            <strong>Transcription:</strong> This is a LibriVox recording.
-                        </div>
-                        
                     </div>
                     
                 </div>
                 
                 <div class="radio-wrapper">
-                    <div class="radio-label-left">Not at all similar</div>
+                    <div class="radio-label-left">Not similar at all</div>
                     <div class="radio-horizontal">
                         <div class="radio-option">
                             <input type="radio" name="smos_q1" id="smos_q1_1" value="1" required>
-                            <label for="smos_q1_1">1 (Not at all similar)</label>
+                            <label for="smos_q1_1">1 (Not similar at all)</label>
                             <div class="radio-number">1</div>
                         </div>
                         <div class="radio-option">
@@ -373,7 +339,7 @@
         </div>
     
         <div class="question" data-question-id="2" data-type="smos">
-            <div class="card-header">SMOS Question 2</div>
+            <div class="card-header"><b>SMOS</b> Question 2</div>
             <div class="card-body">
                 <div class="audio-container">
                     
@@ -383,11 +349,6 @@
                                 Your browser does not support the audio element.
                             </audio>
                         </p>
-                        
-                        <div class="transcription">
-                            <strong>Transcription:</strong> This is a LibriVox recording.
-                        </div>
-                        
                     </div>
                     
                     <div>
@@ -396,21 +357,16 @@
                                 Your browser does not support the audio element.
                             </audio>
                         </p>
-                        
-                        <div class="transcription">
-                            <strong>Transcription:</strong> This is a LibriVox recording.
-                        </div>
-                        
                     </div>
                     
                 </div>
                 
                 <div class="radio-wrapper">
-                    <div class="radio-label-left">Not at all similar</div>
+                    <div class="radio-label-left">Not similar at all</div>
                     <div class="radio-horizontal">
                         <div class="radio-option">
                             <input type="radio" name="smos_q2" id="smos_q2_1" value="1" required>
-                            <label for="smos_q2_1">1 (Not at all similar)</label>
+                            <label for="smos_q2_1">1 (Not similar at all)</label>
                             <div class="radio-number">1</div>
                         </div>
                         <div class="radio-option">

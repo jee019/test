@@ -16,9 +16,9 @@ def main():
         questions = QuestionGenerator("filelist/SMOS.csv").questions
     )
 
-    with open("smos.html", "w") as f:
+    with open("smos.html", "w", encoding="utf-8") as f:
         f.write(html)
-        print("Done!")
+        print("Done! Generated smos.html")
 
 
 if __name__ == "__main__":

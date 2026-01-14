@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>NMOS & SMOS Experiment Form</title>
+    <title>NMOS Experiment Form</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css"
@@ -77,20 +77,6 @@
             width: 100%;
             max-width: 600px;
         }
-        .section-divider {
-            margin: 40px 0 20px 0;
-            padding: 25px;
-            background-color: #f8f9fa;
-            border-radius: 8px;
-            border: 1px solid #dee2e6;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .section-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 15px;
-            color: #495057;
-        }
     </style>
 </head>
 
@@ -98,12 +84,22 @@
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
             
-    <h1 class="display-5">NMOS & SMOS Experiment</h1>
+    <h1 class="display-5">NMOS Experiment</h1>
     <hr class="my-4">
     <p>
-        본 실험에 참여해 주셔서 감사합니다. <br> 
-        먼저 NMOS (음성의 자연스러움) 평가를 진행한 후, 이어서 SMOS (화자 유사도) 평가를 진행해주세요.
+        본 실험에 참여해 주셔서 감사합니다. <br> 각 문항에서 하나의 음성 샘플을 들은 후, 음성의 자연스러움을 평가해주세요.
     </p>
+    <p>
+        평가 기준 (1~5점):
+    <ul>
+        <li><b>1 (Completely unnatural)</b></li>
+        <li><b>2 (Mostly unnatural)</b></li>
+        <li><b>3 (Equally natural and unnatural)</b></li>
+        <li><b>4 (Mostly natural)</b></li>
+        <li><b>5 (Completely natural)</b></li>
+    </ul>
+    </p>
+
 
         </div>
     </div>
@@ -116,30 +112,12 @@
                 <small class="form-text text-muted">Required*</small>
             </div>
             
-            <!-- NMOS Section -->
-            <div class="section-divider">
-                <div class="section-title">Part 1: NMOS (Naturalness Mean Opinion Score) Evaluation</div>
-                <p>
-                    각 문항에서 하나의 음성 샘플을 들은 후, 음성의 자연스러움을 평가해주세요.
-                </p>
-                <p>
-                    평가 기준 (1~5점):
-                <ul>
-                    <li><b>1 (Completely unnatural)</b></li>
-                    <li><b>2 (Mostly unnatural)</b></li>
-                    <li><b>3 (Equally natural and unnatural)</b></li>
-                    <li><b>4 (Mostly natural)</b></li>
-                    <li><b>5 (Completely natural)</b></li>
-                </ul>
-                </p>
-            </div>
     
-    {% for question in mos_questions %}
-        <div class="question" data-question-id="{{ question.id }}" data-type="nmos">
-            <div class="card-header"><b>NMOS</b> Question {{ question.id }}</div>
+        <div class="question" data-question-id="1">
+            <div class="card-header"><b>NMOS</b> Question 1</div>
             <div class="card-body">
                 <p>
-                    <audio controls src="{{ question.audio_path }}">
+                    <audio controls src="wav/tmp.wav">
                         Your browser does not support the audio element.
                     </audio>
                 </p>
@@ -147,28 +125,28 @@
                     <div class="radio-label-left">Completely unnatural</div>
                     <div class="radio-horizontal">
                         <div class="radio-option">
-                            <input type="radio" name="nmos_{{ question.name }}" id="nmos_{{ question.name }}_1" value="1" required>
-                            <label for="nmos_{{ question.name }}_1">1 (Completely unnatural)</label>
+                            <input type="radio" name="nmos_q1" id="nmos_q1_1" value="1" required>
+                            <label for="nmos_q1_1">1 (Completely unnatural)</label>
                             <div class="radio-number">1</div>
                         </div>
                         <div class="radio-option">
-                            <input type="radio" name="nmos_{{ question.name }}" id="nmos_{{ question.name }}_2" value="2" required>
-                            <label for="nmos_{{ question.name }}_2">2 (Mostly unnatural)</label>
+                            <input type="radio" name="nmos_q1" id="nmos_q1_2" value="2" required>
+                            <label for="nmos_q1_2">2 (Mostly unnatural)</label>
                             <div class="radio-number">2</div>
                         </div>
                         <div class="radio-option">
-                            <input type="radio" name="nmos_{{ question.name }}" id="nmos_{{ question.name }}_3" value="3" required>
-                            <label for="nmos_{{ question.name }}_3">3 (Equally natural and unnatural)</label>
+                            <input type="radio" name="nmos_q1" id="nmos_q1_3" value="3" required>
+                            <label for="nmos_q1_3">3 (Equally natural and unnatural)</label>
                             <div class="radio-number">3</div>
                         </div>
                         <div class="radio-option">
-                            <input type="radio" name="nmos_{{ question.name }}" id="nmos_{{ question.name }}_4" value="4" required>
-                            <label for="nmos_{{ question.name }}_4">4 (Mostly natural)</label>
+                            <input type="radio" name="nmos_q1" id="nmos_q1_4" value="4" required>
+                            <label for="nmos_q1_4">4 (Mostly natural)</label>
                             <div class="radio-number">4</div>
                         </div>
                         <div class="radio-option">
-                            <input type="radio" name="nmos_{{ question.name }}" id="nmos_{{ question.name }}_5" value="5" required>
-                            <label for="nmos_{{ question.name }}_5">5 (Completely natural)</label>
+                            <input type="radio" name="nmos_q1" id="nmos_q1_5" value="5" required>
+                            <label for="nmos_q1_5">5 (Completely natural)</label>
                             <div class="radio-number">5</div>
                         </div>
                     </div>
@@ -176,76 +154,91 @@
                 </div>
             </div>
         </div>
-    {% endfor %}
-
-            <!-- SMOS Section -->
-            <div class="section-divider">
-                <div class="section-title">Part 2: SMOS (Speaker Similarity MOS) Evaluation</div>
-                <p>
-                    각 문항에서 두 개의 음성 샘플을 들은 후, 두 음성 간 화자 유사도를 평가해주세요.
-                </p>
-                <p>
-                    평가 기준 (1~5점):
-                    <ul>
-                        <li><b>1 (Not similar at all)</b></li>
-                        <li><b>2 (Slightly similar)</b></li>
-                        <li><b>3 (Moderately similar)</b></li>
-                        <li><b>4 (Very similar)</b></li>
-                        <li><b>5 (Extremely similar)</b></li>
-                    </ul>
-                </p>
-            </div>
     
-    {% for question in smos_questions %}
-        <div class="question" data-question-id="{{ question.id }}" data-type="smos">
-            <div class="card-header"><b>SMOS</b> Question {{ question.id }}</div>
+        <div class="question" data-question-id="2">
+            <div class="card-header"><b>NMOS</b> Question 2</div>
             <div class="card-body">
-                <div class="audio-container">
-                    {% for audio_path in question.audio_paths %}
-                    <div>
-                        <p>
-                            <audio controls src="{{ audio_path }}">
-                                Your browser does not support the audio element.
-                            </audio>
-                        </p>
-                    </div>
-                    {% endfor %}
-                </div>
-                
+                <p>
+                    <audio controls src="wav/tmp.wav">
+                        Your browser does not support the audio element.
+                    </audio>
+                </p>
                 <div class="radio-wrapper">
-                    <div class="radio-label-left">Not similar at all</div>
+                    <div class="radio-label-left">Completely unnatural</div>
                     <div class="radio-horizontal">
                         <div class="radio-option">
-                            <input type="radio" name="smos_{{ question.name }}" id="smos_{{ question.name }}_1" value="1" required>
-                            <label for="smos_{{ question.name }}_1">1 (Not similar at all)</label>
+                            <input type="radio" name="nmos_q2" id="nmos_q2_1" value="1" required>
+                            <label for="nmos_q2_1">1 (Completely unnatural)</label>
                             <div class="radio-number">1</div>
                         </div>
                         <div class="radio-option">
-                            <input type="radio" name="smos_{{ question.name }}" id="smos_{{ question.name }}_2" value="2" required>
-                            <label for="smos_{{ question.name }}_2">2 (Slightly similar)</label>
+                            <input type="radio" name="nmos_q2" id="nmos_q2_2" value="2" required>
+                            <label for="nmos_q2_2">2 (Mostly unnatural)</label>
                             <div class="radio-number">2</div>
                         </div>
                         <div class="radio-option">
-                            <input type="radio" name="smos_{{ question.name }}" id="smos_{{ question.name }}_3" value="3" required>
-                            <label for="smos_{{ question.name }}_3">3 (Moderately similar)</label>
+                            <input type="radio" name="nmos_q2" id="nmos_q2_3" value="3" required>
+                            <label for="nmos_q2_3">3 (Equally natural and unnatural)</label>
                             <div class="radio-number">3</div>
                         </div>
                         <div class="radio-option">
-                            <input type="radio" name="smos_{{ question.name }}" id="smos_{{ question.name }}_4" value="4" required>
-                            <label for="smos_{{ question.name }}_4">4 (Very similar)</label>
+                            <input type="radio" name="nmos_q2" id="nmos_q2_4" value="4" required>
+                            <label for="nmos_q2_4">4 (Mostly natural)</label>
                             <div class="radio-number">4</div>
                         </div>
                         <div class="radio-option">
-                            <input type="radio" name="smos_{{ question.name }}" id="smos_{{ question.name }}_5" value="5" required>
-                            <label for="smos_{{ question.name }}_5">5 (Extremely similar)</label>
+                            <input type="radio" name="nmos_q2" id="nmos_q2_5" value="5" required>
+                            <label for="nmos_q2_5">5 (Completely natural)</label>
                             <div class="radio-number">5</div>
                         </div>
                     </div>
-                    <div class="radio-label-right">Extremely similar</div>
+                    <div class="radio-label-right">Completely natural</div>
                 </div>
             </div>
         </div>
-    {% endfor %}
+    
+        <div class="question" data-question-id="3">
+            <div class="card-header"><b>NMOS</b> Question 3</div>
+            <div class="card-body">
+                <p>
+                    <audio controls src="wav/tmp.wav">
+                        Your browser does not support the audio element.
+                    </audio>
+                </p>
+                <div class="radio-wrapper">
+                    <div class="radio-label-left">Completely unnatural</div>
+                    <div class="radio-horizontal">
+                        <div class="radio-option">
+                            <input type="radio" name="nmos_q3" id="nmos_q3_1" value="1" required>
+                            <label for="nmos_q3_1">1 (Completely unnatural)</label>
+                            <div class="radio-number">1</div>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="nmos_q3" id="nmos_q3_2" value="2" required>
+                            <label for="nmos_q3_2">2 (Mostly unnatural)</label>
+                            <div class="radio-number">2</div>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="nmos_q3" id="nmos_q3_3" value="3" required>
+                            <label for="nmos_q3_3">3 (Equally natural and unnatural)</label>
+                            <div class="radio-number">3</div>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="nmos_q3" id="nmos_q3_4" value="4" required>
+                            <label for="nmos_q3_4">4 (Mostly natural)</label>
+                            <div class="radio-number">4</div>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="nmos_q3" id="nmos_q3_5" value="5" required>
+                            <label for="nmos_q3_5">5 (Completely natural)</label>
+                            <div class="radio-number">5</div>
+                        </div>
+                    </div>
+                    <div class="radio-label-right">Completely natural</div>
+                </div>
+            </div>
+        </div>
+    
 
             <input type="text" name="thank" value="참여해주셔서 감사합니다!" hidden>
             <input class="btn btn-info btn-lg" type="submit" value=" 제출 " id="submitBtn">
@@ -258,7 +251,7 @@
 
 <script>
         (function() {
-            const formUrl = "{{ form_url }}";
+            const formUrl = "https://script.google.com/macros/s/AKfycbz88pG3Usw7jdtNWh9pUWnfPR855SESSYZFGyaYbPv006CSZplhdrc2v2wwhjakF8mkjg/exec";
             let isSubmitting = false;
             
             document.getElementById('theForm').addEventListener('submit', function(event) {

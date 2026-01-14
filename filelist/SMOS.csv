@@ -1,3 +1,3 @@
-order,filename1,filename2,transcription1,transcription2
-19,wav/tmp.wav,wav/tmp.wav,This is a LibriVox recording.,This is a LibriVox recording.
-12,wav/tmp.wav,wav/tmp.wav,This is a LibriVox recording.,This is a LibriVox recording.
+order,filename1,filename2
+19,wav/tmp.wav,wav/tmp.wav
+12,wav/tmp.wav,wav/tmp.wav

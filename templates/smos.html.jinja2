@@ -3,12 +3,12 @@
     <h1 class="display-5">Similarity MOS Experiment</h1>
     <hr class="my-4">
     <p>
-        본 실험에 참여해 주셔서 감사합니다. <br> 각 문항에서 두 개의 오디오 샘플을 들은 후, 두 오디오 간 화자 유사도를 평가해주세요.
+        본 실험에 참여해 주셔서 감사합니다. <br> 각 문항에서 두 개의 음성 샘플을 들은 후, 두 음성 간 화자 유사도를 평가해주세요.
     </p>
     <p>
         평가 기준 (1~5점):
         <ul>
-            <li><b>1 (Not at all similar)</b></li>
+            <li><b>1 (Not similar at all)</b></li>
             <li><b>2 (Slightly similar)</b></li>
             <li><b>3 (Moderately similar)</b></li>
             <li><b>4 (Very similar)</b></li>
@@ -19,7 +19,7 @@
 {% block form_questions %}
     {% for question in questions %}
         <div class="question" data-question-id="{{ question.id }}">
-            <div class="card-header">{{ question.title }}</div>
+            <div class="card-header"><b>SMOS</b> {{ question.title }}</div>
             <div class="card-body">
                 <div class="audio-container">
                     {% for audio_path in question.audio_paths %}
@@ -29,21 +29,16 @@
                                 Your browser does not support the audio element.
                             </audio>
                         </p>
-                        {% if question.transcriptions and question.transcriptions[loop.index0] %}
-                        <div class="transcription">
-                            <strong>Transcription:</strong> {{ question.transcriptions[loop.index0] }}
-                        </div>
-                        {% endif %}
                     </div>
                     {% endfor %}
                 </div>
                 
                 <div class="radio-wrapper">
-                    <div class="radio-label-left">Not at all similar</div>
+                    <div class="radio-label-left">Not similar at all</div>
                     <div class="radio-horizontal">
                         <div class="radio-option">
                             <input type="radio" name="{{ question.name }}" id="{{ question.name }}_1" value="1" required>
-                            <label for="{{ question.name }}_1">1 (Not at all similar)</label>
+                            <label for="{{ question.name }}_1">1 (Not similar at all)</label>
                             <div class="radio-number">1</div>
                         </div>
                         <div class="radio-option">

@@ -27,9 +27,6 @@ class QuestionGenerator_MOS(QuestionGenerator):
                     "audio_path": f"{filename}",  # Assume all files are in 'wavs/' directory
                     "name": f"q{idx}"  # Unique identifier for the question
                 }
-                # Add transcription if available
-                if 'transcription' in row and row['transcription']:
-                    question["transcription"] = row['transcription']
                 questions.append(question)
         return questions
     
@@ -51,19 +48,5 @@ class QuestionGenerator_SMOS(QuestionGenerator):
                     "audio_paths": [f"{f1}", f"{f2}"],  # Assume all files are in 'wavs/' directory
                     "name": f"q{idx}"  # Unique identifier for the question
                 }
-                # Add transcriptions if available
-                transcriptions = []
-                if 'transcription1' in row and row['transcription1']:
-                    transcriptions.append(row['transcription1'])
-                else:
-                    transcriptions.append(None)
-                if 'transcription2' in row and row['transcription2']:
-                    transcriptions.append(row['transcription2'])
-                else:
-                    transcriptions.append(None)
-                
-                # Only add transcriptions if at least one exists (not None and not empty)
-                if any(t for t in transcriptions if t):
-                    question["transcriptions"] = transcriptions
                 questions.append(question)
         return questions
